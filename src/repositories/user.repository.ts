@@ -12,7 +12,6 @@ export class UserRepository {
 
   async create(user: User) {
     this.users.push(user);
-    console.log(this.users);
   }
 
   async list() {
