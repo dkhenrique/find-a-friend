@@ -15,6 +15,7 @@ export class EmailIsUniqueValidator implements ValidatorConstraintInterface {
 
   async validate(
     value: any,
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     validationArguments?: ValidationArguments,
   ): Promise<boolean> {
     const emailExists = await this.userRepository.existsByEmail(value);
