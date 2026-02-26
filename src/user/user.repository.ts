@@ -11,10 +11,15 @@ export class UserRepository {
   private users: User[] = [];
 
   async create(user: User) {
-    await this.users.push(user);
+    this.users.push(user);
   }
 
   async list() {
-    return await this.users;
+    return this.users;
+  }
+
+  async existsByEmail(email: string) {
+    const possibleUser = this.users.find((user) => user.email === email);
+    return possibleUser !== undefined;
   }
 }

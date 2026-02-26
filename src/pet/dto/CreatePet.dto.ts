@@ -1,7 +1,10 @@
 import { PetEnum } from 'src/enums/petEnum';
-import { IsBoolean, IsEnum, IsNotEmpty } from 'class-validator';
+import { IsBoolean, IsEnum, IsNotEmpty, IsUUID } from 'class-validator';
 
 export class CreatePetDto {
+  @IsUUID(undefined, { message: 'Id do usuário inválido' })
+  userId: string;
+
   @IsNotEmpty({ message: 'Name is required' })
   name: string;
 
