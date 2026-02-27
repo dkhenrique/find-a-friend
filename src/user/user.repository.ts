@@ -41,4 +41,16 @@ export class UserRepository {
 
     return userToUpdate;
   }
+
+  async delete(id: string) {
+    const userToDelete = this.users.find((user) => user.id === id);
+
+    if (!userToDelete) {
+      throw new Error('User not found');
+    }
+
+    this.users = this.users.filter((user) => user.id !== id);
+
+    return userToDelete;
+  }
 }
