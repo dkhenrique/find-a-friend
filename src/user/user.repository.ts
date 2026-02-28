@@ -25,12 +25,16 @@ export class UserRepository {
     return possibleUser !== undefined;
   }
 
-  async update(id: string, user: Partial<UserEntity>) {
-    const userToUpdate = this.users.find((user) => user.id === id);
-
-    if (!userToUpdate) {
+  private searchById(id: string) {
+    const user = this.users.find((user) => user.id === id);
+    if (!user) {
       throw new NotFoundException('User not found');
     }
+    return user;
+  }
+
+  async update(id: string, user: Partial<UserEntity>) {
+    const userToUpdate = this.searchById(id);
 
     Object.entries(user).forEach(([key, value]) => {
       if (key === 'id') {
@@ -43,11 +47,7 @@ export class UserRepository {
   }
 
   async delete(id: string) {
-    const userToDelete = this.users.find((user) => user.id === id);
-
-    if (!userToDelete) {
-      throw new NotFoundException('User not found');
-    }
+    const userToDelete = this.searchById(id);
 
     this.users = this.users.filter((user) => user.id !== id);
 
